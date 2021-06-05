@@ -5,6 +5,9 @@
  */
 package library.management.otomation;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author HP
@@ -16,6 +19,15 @@ public class LibraryManagementOtomation {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+      SwingUtilities.invokeLater(new Runnable() {
+        public void run() {
+           loginPage login  = new loginPage();
+           login.setVisible(true);
+        }
+    });
+       
+        
     }
     
 }
