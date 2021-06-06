@@ -1,6 +1,10 @@
 package library.management.otomation;
 
 
+import ProjectServices.ProviderConnection;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /*
@@ -138,31 +142,47 @@ public class loginPage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
 
+try{
+Connection connection=ProviderConnection.getConnect();
+Statement statement=connection.createStatement();
 
-   if(jTextField1.getText().equals("admin")&&jPasswordField1.getText().equals("admin")){
-  
-            System.out.println("loginPage.jTextField1ActionPerformed()");
-            setVisible(false);
+String adminName=jTextField1.getText();
+String password=jPasswordField1.getText();
+String queryText = "select *from admin where name='"+adminName+"' and adminID = '"+password+"'";
+    ResultSet rsl=statement.executeQuery(queryText);
+        System.out.println(password);
+
+    if(rsl.next()){
+
+
+               setVisible(false);
             new homePageAdmin().setVisible(true);
-            
-        }
-  /* else{
-if(jTextField1.getText().equals("student")&&jPasswordField1.getText().equals("student")){
     
+    }else{
     
-       System.out.println("loginPage.jTextField1ActionPerformed()");
-            setVisible(false);
-            new homePageStudent().setVisible(true);
-    
-    
-}else{
 
-            JOptionPane.showMessageDialog(null,"Geçersiz Username veya Password");
+        JOptionPane.showConfirmDialog(null,"Böyle Bir Admin Kayıtlı Değil");
+
+
+
+    }
+    
+    
+
+
+
+
+}catch(Exception e){
+
+            JOptionPane.showConfirmDialog(null,"Bağlantı Hatası "+e.toString());
+
 }
-   
-   
-   }*/
-        // TODO add your handling code here:
+        
+        
+        
+        
+        
+
 
 
 
